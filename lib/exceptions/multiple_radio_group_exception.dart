@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide RadioGroup;
 import 'package:radio_group_v2/widgets/view_models/radio_group_controller.dart';
 import 'package:radio_group_v2/widgets/views/radio_group.dart';
 

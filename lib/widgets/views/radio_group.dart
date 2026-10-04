@@ -1,7 +1,10 @@
+// Legacy Radio APIs preserve support for Flutter versions before RadioGroup.
+// ignore_for_file: deprecated_member_use, deprecated_member_use_from_same_package
+
 import 'dart:developer';
 
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide RadioGroup;
 import 'package:radio_group_v2/exceptions/invalid_key_type_exception.dart';
 import 'package:radio_group_v2/utils/radio_group_decoration.dart';
 import 'package:radio_group_v2/widgets/view_models/radio_group_controller.dart';
@@ -55,7 +58,7 @@ import 'package:radio_group_v2/widgets/view_models/radio_group_controller.dart';
 ///   onChanged: (value) {
 ///     liveChangeHere();
 ///   },
-///   orientation: RadioListOrientation.Horizontal,
+///   orientation: RadioGroupOrientation.horizontal,
 /// )
 /// ```
 ///
@@ -72,6 +75,10 @@ import 'package:radio_group_v2/widgets/view_models/radio_group_controller.dart';
 ///
 /// * [RadioGroupController] which is used to know which button in the group is
 ///   selected as well as programmatically select a button.
+@Deprecated(
+  'Use RadioGroupBuilder from package:radio_group_builder/radio_group_builder.dart. '
+  'See https://pub.dev/packages/radio_group_builder.',
+)
 class RadioGroup<T> extends StatefulWidget {
   /// Creates a widget which contains [Radio] buttons that a user can click to
   /// make selections within the app.
@@ -280,8 +287,8 @@ class RadioGroupState<T> extends State<RadioGroup<T>> {
   /// This method builds a button with a value that is passed to it. This is
   /// what allows the [RadioGroup] widget to be dynamically sized. It can hold
   /// as many or as few values as it needs.
-  Radio _buttonBuilder(T value) {
-    return Radio(
+  Radio<T> _buttonBuilder(T value) {
+    return Radio<T>(
       materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
       value: value,
       groupValue: _value,
@@ -336,19 +343,11 @@ class RadioGroupState<T> extends State<RadioGroup<T>> {
                 // If `toggleable` is turned on and the same value is clicked,
                 // deselect all buttons.
                 this.value = null;
-
-                if (widget.onChanged != null) {
-                  widget.onChanged!(value);
-                }
               }
             }
           } else {
             // Set the new value.
             this.value = value;
-
-            if (widget.onChanged != null) {
-              widget.onChanged!(value);
-            }
           }
         },
         child: Padding(

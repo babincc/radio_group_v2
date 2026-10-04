@@ -1,3 +1,14 @@
+## 3.3.2 - October 4, 2026
+
+- Deprecate the legacy `RadioGroup` widget and recommend `radio_group_builder`.
+- Add migration guidance and import examples for avoiding Flutter's `RadioGroup`
+  name collision; preserve the existing legacy API.
+- Fix internal and example imports on newer Flutter versions.
+- Resolve controller state after the initial mount so programmatic selection works.
+- Preserve generic typing in the underlying radio buttons.
+- Fix duplicate label-tap callbacks and report `null` when toggling off.
+- Correct SDK requirements to Flutter 3.22+ / Dart 3.4+ for existing `WidgetState` usage.
+
 ## 3.3.1 - February 20, 2025
 
 - Moved repo

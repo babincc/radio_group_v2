@@ -1,4 +1,6 @@
-import 'package:flutter/material.dart';
+// ignore_for_file: deprecated_member_use_from_same_package, deprecated_member_use
+
+import 'package:flutter/material.dart' hide RadioGroup;
 import 'package:radio_group_v2/exceptions/controller_decoupled_exception.dart';
 import 'package:radio_group_v2/exceptions/illegal_value_exception.dart';
 import 'package:radio_group_v2/exceptions/index_out_of_bounds_exception.dart';
@@ -33,40 +35,16 @@ class RadioGroupController<T> {
   /// This is the state of the radio group that this controller is in charge of.
   GlobalKey<RadioGroupState<T>>? _myRadioGroupKey;
 
-  RadioGroupState<T>? _myRadioGroup;
+  // Resolve the state after mounting rather than caching null in initState.
+  RadioGroupState<T>? get _myRadioGroup => _myRadioGroupKey?.currentState;
 
   GlobalKey<RadioGroupState<T>>? get myRadioGroupKey => _myRadioGroupKey;
   set myRadioGroupKey(GlobalKey<RadioGroupState<T>>? key) {
-    if (key == null) return;
-
-    if (key == _myRadioGroupKey) {
-      if (_myRadioGroupKey!.currentState != null &&
-          _myRadioGroupKey!.currentState!.mounted &&
-          _myRadioGroupKey!.currentState! != _myRadioGroup) {
-        _myRadioGroup = _myRadioGroupKey!.currentState!;
-      }
-
-      return;
+    if (key == null || key == _myRadioGroupKey) return;
+    if (_myRadioGroup?.mounted ?? false) {
+      throw MultipleRadioGroupException(radioGroupController: this, key: key);
     }
-
-    if (_myRadioGroup == null || !_myRadioGroup!.mounted) {
-      _myRadioGroupKey = key;
-      _myRadioGroup = _myRadioGroupKey!.currentState;
-
-      return;
-    }
-
-    if (_myRadioGroup != null &&
-        _myRadioGroup!.widget.key != null &&
-        _myRadioGroupKey != null &&
-        _myRadioGroup!.widget.key! == _myRadioGroupKey!) {
-      _myRadioGroupKey = key;
-      _myRadioGroup = _myRadioGroupKey!.currentState;
-
-      return;
-    }
-
-    throw MultipleRadioGroupException(radioGroupController: this, key: key);
+    _myRadioGroupKey = key;
   }
 
   /// Sets the value of the selected item in `this` controller's radio group.

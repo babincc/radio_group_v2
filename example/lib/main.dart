@@ -1,4 +1,6 @@
-import 'package:flutter/material.dart';
+// ignore_for_file: deprecated_member_use_from_same_package, deprecated_member_use
+
+import 'package:flutter/material.dart' hide RadioGroup;
 import 'package:radio_group_v2/radio_group_v2.dart';
 
 void main() {

@@ -1,5 +1,12 @@
+/// Deprecated legacy radio groups. Prefer radio_group_builder:
+/// https://pub.dev/packages/radio_group_builder.
+///
+/// Existing applications can continue using this API. On recent Flutter,
+/// hide Flutter's RadioGroup import or prefix this package to avoid collisions.
+library;
+
 // @author Christian Babin
-// @version 3.3.1
+// @version 3.3.2
 // https://github.com/babincc/radio_group_v2/blob/master/lib/radio_group_v2.dart
 
 export 'package:radio_group_v2/exceptions/controller_decoupled_exception.dart';

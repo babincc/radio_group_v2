@@ -1,7 +1,7 @@
 name: radio_group_v2
-description: A widget that groups radio buttons so they can work together to
-  give the user a pleasant experience when making selections within the app.
-version: 3.3.1
+description: Deprecated. Use radio_group_builder for labeled radio buttons built
+  on Flutter's native RadioGroup. Retained for existing applications.
+version: 3.3.2
 repository: https://github.com/babincc/radio_group_v2
 issue_tracker: https://github.com/babincc/radio_group_v2/issues
 
@@ -15,8 +15,8 @@ funding:
   - https://venmo.com/u/babincc
 
 environment:
-  sdk: ^3.3.3
-  flutter: ">=1.17.0"
+  sdk: ^3.4.0
+  flutter: ">=3.22.0"
 
 dependencies:
   flutter:

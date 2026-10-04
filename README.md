@@ -1,23 +1,51 @@
-# Radio Group
+# Radio Group (deprecated)
+
+> **Deprecated:** Use [radio_group_builder](https://pub.dev/packages/radio_group_builder)
+> for new development. It uses Flutter's built-in `RadioGroup` for selection,
+> keyboard navigation, and accessibility, and names its widget `RadioGroupBuilder`
+> to avoid the name collision with Flutter's `RadioGroup`.
+
+Existing applications can continue using this package. See [MIGRATION.md](MIGRATION.md)
+for migration guidance. `radio_group_builder` requires Flutter 3.35+ / Dart 3.9+;
+this legacy package requires Flutter 3.22+ / Dart 3.4+ because it uses `WidgetState`.
 
 A widget that groups radio buttons so they can work together to give the user a pleasant experience when making selections within the app.
 
 ![A gif demonstrating the radio group in action.](https://raw.githubusercontent.com/babincc/radio_group_v2/master/resources/radio_group_demo.gif)
 
-## Installation
+## Installation for existing applications
 
 In the `pubspec.yaml` of your flutter project, add the following dependency:
 
 ```yaml
 dependencies:
-  radio_group_v2: ^3.3.1
+  radio_group_v2: ^3.3.2
 ```
 
 Import it to each file you use it in:
 
 ```dart
+import 'package:flutter/material.dart' hide RadioGroup;
 import 'package:radio_group_v2/radio_group_v2.dart';
 ```
+
+Flutter 3.35+ also exports `RadioGroup`. Hide that name from Flutter imports as
+shown above, or prefix this package when you need both widgets:
+
+```dart
+import 'package:flutter/material.dart';
+import 'package:radio_group_v2/radio_group_v2.dart' as legacy;
+
+final controller = legacy.RadioGroupController<String>();
+final group = legacy.RadioGroup<String>(
+  controller: controller,
+  values: ['First', 'Second'],
+);
+```
+
+The legacy widget emits a deprecation diagnostic but remains available.
+Create controllers once (for example, as State fields) and access selection after
+the group has mounted.
 
 ## Usage
 
@@ -45,7 +73,7 @@ RadioGroup(
   controller: myController,
   values: ["Choice1", "Choice2", "Choice3"],
   indexOfDefault: 0,
-  orientation: RadioGroupOrientation.Horizontal,
+  orientation: RadioGroupOrientation.horizontal,
   decoration: RadioGroupDecoration(
     spacing: 10.0,
     labelStyle: TextStyle(
@@ -115,20 +143,8 @@ RadioGroup(
 String selected = myController.value.toString();
 ```
 
-<hr>
+---
 
-<h3 align="center">If you found this helpful, please consider donating. Thanks!</h3>
-<p align="center">
-  <a href="https://www.buymeacoffee.com/babincc" target="_blank">
-    <img src="https://raw.githubusercontent.com/babincc/radio_group_v2/master/resources/donate_icons/buy_me_a_coffee_logo.png" alt="buy me a coffee" height="45">
-  </a>
-  &nbsp;&nbsp;&nbsp;&nbsp;
-  <a href="https://paypal.me/cssbabin" target="_blank">
-    <img src="https://raw.githubusercontent.com/babincc/radio_group_v2/master/resources/donate_icons/pay_pal_logo.png" alt="paypal" height="45">
-  </a>
-  &nbsp;&nbsp;&nbsp;&nbsp;
-  <a href="https://venmo.com/u/babincc" target="_blank">
-    <img src="https://raw.githubusercontent.com/babincc/radio_group_v2/master/resources/donate_icons/venmo_logo.png" alt="venmo" height="45">
-  </a>
-</p>
-<br><br>
+If you found this helpful, please consider supporting development through
+[Buy Me a Coffee](https://www.buymeacoffee.com/babincc),
+[PayPal](https://paypal.me/cssbabin), or [Venmo](https://venmo.com/u/babincc).
